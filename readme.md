@@ -16,7 +16,7 @@ This project is the solution for the Data Engineering assignment. It involves re
 │   ├── process_data.py
 │   ├── write_to_postgres.py
 │   └── etl_process.py
-
+```
 
 ## Prerequisites
 
@@ -33,7 +33,7 @@ This project is the solution for the Data Engineering assignment. It involves re
 ```bash
 git clone <repository_url>
 cd data-takehome
-
+```
 
 ### 2. Create and Start Docker Services
 
@@ -41,7 +41,7 @@ Make sure you have Docker and Docker Compose installed. Then, start the Docker s
 
 ```bash
 docker-compose up -d
-
+```
 This will start the LocalStack and PostgreSQL containers.
 
 ### 3. Install Required Python Packages
@@ -50,7 +50,7 @@ Install the necessary Python packages using `pip`:
 
 ```bash
 pip install -r requirements.txt
-
+```
 
 ### 4. Ensure the SQS Queue Exists
 
@@ -58,6 +58,7 @@ Create the SQS queue in the LocalStack instance:
 
 ```bash
 awslocal sqs create-queue --queue-name login-queue
+```
 
 ## Running the ETL Process
 
@@ -65,7 +66,7 @@ Run the ETL process using the following command:
 
 ```bash
 python scripts/etl_process.py
-
+```
 This script orchestrates the entire ETL process, performing the following steps:
 
 1. **Initialize the PostgreSQL Database**: Run `initialize_db.py` to create the required table if it does not exist.
@@ -81,14 +82,14 @@ To validate the messages loaded in Postgres:
 
 ```bash
 psql -h localhost -p 5432 -U postgres -d postgres
-
+```
 When prompted, enter the password: `postgres`.
 
 ### 2. Run the Query to View Data
 
 ```sql
 SELECT * FROM user_logins;
-
+```
 This query will display the data inserted by the ETL process.
 
 ### 3. Exit `psql`
@@ -97,7 +98,7 @@ To exit `psql`, type:
 
 ```plaintext
 \q
-
+```
 ## Scripts Overview
 
 ### `initialize_db.py`
@@ -128,14 +129,14 @@ If you encounter any issues with Docker or the services, try restarting the Dock
 ```bash
 docker-compose down
 docker-compose up -d
+```
+Ensure all required Python packages are installed.
 
-## Troubleshooting
-
-If you encounter any issues with Docker or the services, try restarting the Docker services:
+Verify that the SQS queue exists using:
 
 ```bash
-docker-compose down
-docker-compose up -d
+awslocal sqs list-queues
+```
 
 
 
